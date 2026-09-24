@@ -165,7 +165,7 @@ const cmsNews = postResult.entries.map((post) => ({
   description: post.data.excerpt,
   image: post.data.featured_image,
   alt: post.data.featured_image?.alt ?? post.data.title,
-  href: localizePath(`/posts/${getCanonicalPostSlug(post)}`, locale),
+  href: localizePath(`/tin-tuc/${getCanonicalPostSlug(post)}`, locale),
   date: post.data.publishedAt?.toLocaleDateString(intlLocaleByUiLocale[locale], {
     day: "2-digit",
     month: "2-digit",
@@ -176,7 +176,7 @@ const cmsNews = postResult.entries.map((post) => ({
 const { siteTitle, siteTagline } = resolveBlogSiteIdentity(settings);
 ---
 
-<Base title={siteTitle} description={siteTagline}>
+<Base title={`${siteTitle} | ${t("seo.homeTitle")}`} description={siteTagline}>
   <HeroCarousel />
 
   {

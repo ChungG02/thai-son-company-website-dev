@@ -1,9 +1,10 @@
 ---
-import { decodeSlug } from "emdash";
+import { decodeSlug, getSeoMeta, getSiteSettings } from "emdash";
 import { PortableText } from "emdash/ui";
 import Base from "../../layouts/Base.astro";
-import { getRequestLocale, getRouteSlug, localizePath } from "../../i18n/ui";
+import { getPublicEntrySlug, getRequestLocale, getRouteSlug, localizePath } from "../../i18n/ui";
 import { getEntryWithFallback } from "../../i18n/content";
+import { resolveBlogSiteIdentity } from "../../utils/site-identity";
 
 const locale = getRequestLocale(Astro);
 
@@ -20,10 +21,22 @@ if (!page) {
 }
 
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+const { siteTitle } = resolveBlogSiteIdentity(await getSiteSettings());
+const seo = getSeoMeta(page, {
+	siteTitle,
+	siteUrl: Astro.url.origin,
+	path: localizePath(`/pages/${getPublicEntrySlug(page)}`, locale),
+});
 ---
 
 <Base
-	title={page.data.title}
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	image={seo.ogImage}
+	canonical={seo.canonical}
+	robots={seo.robots}
 	content={{ collection: "pages", id: page.data.id, slug: page.id }}
 >
 	<article class="page-article">

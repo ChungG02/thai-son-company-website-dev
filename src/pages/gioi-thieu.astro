@@ -9,7 +9,7 @@ import { companyProfile } from "../data/companyProfile";
 ---
 
 <BaseLayout
-  title={`${companyProfile.pageTitle} | ${companyProfile.name}`}
+  title="Giới thiệu Công ty Thái Sơn Plastic"
   description="Giới thiệu về Công ty TNHH Thái Sơn và các giải pháp vật tư đóng gói công nghiệp."
 >
   <Container>
@@ -17,15 +17,16 @@ import { companyProfile } from "../data/companyProfile";
       <PageHeading
         eyebrow="Giới thiệu về chúng tôi"
         eyebrowClass="text-base sm:text-lg"
-        title=""
+        title="Giới thiệu Công ty TNHH Sản xuất Thương mại và Xuất nhập khẩu Thái Sơn"
       />
 
       <div class="mt-10">
         <h2
+          id="company-overview-title"
           class="mb-7 text-xl font-bold uppercase text-[#1477b9]
                  sm:text-2xl"
         >
-          {companyProfile.name}
+          Tổng quan công ty
         </h2>
 
         <CompanyOverview items={companyProfile.overview} />

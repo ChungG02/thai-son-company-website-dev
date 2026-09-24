@@ -1,5 +1,6 @@
 ---
-import { decodeSlug } from "emdash";
+import { decodeSlug, getSeoMeta, getSiteSettings } from "emdash";
+// import type { Product } from "../../../.emdash/types";
 import type { ProductWithAlt } from "../../modules/types/product.type";
 import ProductGallery from "../../modules/products/components/ProductGallery.astro";
 import Base from "../../layouts/Base.astro";
@@ -7,6 +8,7 @@ import ProductDescription from "../../modules/products/components/ProductDescrip
 import ProductSpecifications from "../../modules/products/components/ProductSpecifications.astro";
 import { getPublicEntrySlug, getRequestLocale, getRouteSlug, localizePath, useTranslations } from "../../i18n/ui";
 import { getEntryWithFallback } from "../../i18n/content";
+import { resolveBlogSiteIdentity } from "../../utils/site-identity";
 
 const locale = getRequestLocale(Astro);
 const t = useTranslations(locale);
@@ -38,15 +40,27 @@ if (!product) {
 if (Astro.cache?.enabled) {
   Astro.cache.set(cacheHint);
 }
+
+const { siteTitle } = resolveBlogSiteIdentity(await getSiteSettings());
+const seo = getSeoMeta(product, {
+  siteTitle,
+  siteUrl: Astro.url.origin,
+  path: localizePath(`/products/${getPublicEntrySlug(product)}`, locale),
+  defaultOgImage: product.data.featured_image?.src,
+});
 ---
 
 <Base
-  title={product.data.title}
-  description={t("products.metaDescription", { title: product.data.title })}
+  title={seo.title}
+  pageTitle={seo.ogTitle}
+  description={seo.description ?? t("products.metaDescription", { title: product.data.title })}
+  image={seo.ogImage}
+  canonical={seo.canonical}
+  robots={seo.robots}
   content={{ collection: "products", id: product.data.id, slug: getPublicEntrySlug(product) }}
 >
   <main class="product-detail">
-    <a href={localizePath("/products", locale)} class="back-link">← {t("products.back")}</a>
+    <a href={localizePath("/", locale)} class="back-link">← {t("products.back")}</a>
 
     <section class="product-detail__main">
       <ProductGallery

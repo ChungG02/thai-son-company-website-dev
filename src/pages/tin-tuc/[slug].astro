@@ -99,7 +99,7 @@ const { siteTitle } = resolveBlogSiteIdentity(await getSiteSettings());
 const seo = getSeoMeta(post, {
 	siteTitle,
 	siteUrl: Astro.url.origin,
-	path: localizePath(`/posts/${canonicalSlug}`, locale),
+	path: localizePath(`/tin-tuc/${canonicalSlug}`, locale),
 	defaultOgImage: featuredImageUrl,
 });
 
@@ -311,7 +311,7 @@ const publishDate =
 									title={p.data.title}
 									excerpt={p.data.excerpt}
 									featuredImage={p.data.featured_image}
-									href={localizePath(`/posts/${getCanonicalPostSlug(p)}`, locale)}
+									href={localizePath(`/tin-tuc/${getCanonicalPostSlug(p)}`, locale)}
 									date={p.data.publishedAt ?? undefined}
 									readingTime={getReadingTime(p.data.content)}
 									tags={postTags.map((t) => ({ slug: t.slug, label: t.label }))}

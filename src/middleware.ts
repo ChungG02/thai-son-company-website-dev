@@ -9,14 +9,14 @@ function getPostRoute(pathname: string):
   | undefined {
   const parts = pathname.split("/").filter(Boolean);
 
-  if (parts.length === 2 && parts[0] === "posts") {
+  if (parts.length === 2 && parts[0] === "tin-tuc") {
     return { prefix: "", slug: parts[1] };
   }
 
   if (
     parts.length === 3 &&
     localePrefixes.has(parts[0]) &&
-    parts[1] === "posts"
+    parts[1] === "tin-tuc"
   ) {
     return { prefix: `/${parts[0]}`, slug: parts[2] };
   }
@@ -33,7 +33,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
     if (canonicalSlug && canonicalSlug !== decodedSlug) {
       const target = new URL(
-        `${route.prefix}/posts/${canonicalSlug}${context.url.search}`,
+        `${route.prefix}/tin-tuc/${canonicalSlug}${context.url.search}`,
         context.url,
       );
       return Response.redirect(target, 301);

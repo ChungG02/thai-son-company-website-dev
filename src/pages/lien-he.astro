@@ -1,7 +1,7 @@
 ---
 import ContactInformation from "../components/about/ContactInformation.astro";
 import Container from "../components/common/Container.astro";
-// import PageHeading from "../components/common/PageHeading.astro";
+import PageHeading from "../components/common/PageHeading.astro";
 // import LocationCard from "../components/contact/LocationCard.astro";
 import MapSection from "../components/contact/MapSection.astro";
 import SocialChannels from "../components/contact/SocialChannels.astro";
@@ -16,13 +16,14 @@ import {
 ---
 
 <BaseLayout
-  title="Liên hệ | Công ty Thái Sơn"
+  title="Liên hệ Thái Sơn Plastic"
   description="Thông tin liên hệ, văn phòng, nhà máy và các kênh truyền thông của Công ty TNHH Thái Sơn."
 >
   <Container>
     <div class="py-10 lg:py-14">
+      <PageHeading title="Liên hệ Thái Sơn Plastic" />
 
-      <div class="mt-1">
+      <div class="mt-10">
         <!-- <h2
           class="mb-7 text-2xl font-bold uppercase text-slate-900
                  sm:text-3xl"

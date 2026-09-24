@@ -35,7 +35,7 @@ export const heroSlides: HeroSlide[] = [
     productLabelKeys: [
       "hero.product.virginResin",
       "hero.product.peFilm",
-      "hero.product.peStrap",
+      "hero.product.petStrap",
       "hero.product.tape",
       "hero.product.edgeProtector",
       "hero.product.other",

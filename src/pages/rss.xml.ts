@@ -24,7 +24,7 @@ export const GET: APIRoute = async (context) => {
 			const pubDate = post.data.publishedAt.toUTCString();
 
 			const postUrl = new URL(
-				localizePath(`/posts/${getCanonicalPostSlug(post)}`, locale),
+				localizePath(`/tin-tuc/${getCanonicalPostSlug(post)}`, locale),
 				siteUrl,
 			).toString();
 			const title = escapeXml(post.data.title || "Untitled");

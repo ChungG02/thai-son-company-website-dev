@@ -64,7 +64,7 @@ const filteredPosts = posts.map((post) => ({
 							title={post.data.title}
 							excerpt={post.data.excerpt}
 							featuredImage={post.data.featured_image}
-							href={localizePath(`/posts/${getCanonicalPostSlug(post)}`, locale)}
+							href={localizePath(`/tin-tuc/${getCanonicalPostSlug(post)}`, locale)}
 							date={post.data.publishedAt ?? undefined}
 							readingTime={getReadingTime(post.data.content)}
 							tags={tags.map((t) => ({ slug: t.slug, label: t.label }))}

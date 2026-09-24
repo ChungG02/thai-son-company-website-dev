@@ -39,7 +39,7 @@ const navigationDefinitions: NavigationDefinition[] = [
         href: "/products/mang-boc-pe-trong-suot",
       },
       { labelKey: "nav.coloredPeFilm", href: "/products/mang-boc-pe-mau" },
-      { labelKey: "nav.customProduction", href: "/posts/at-san-xuat-theo-yeu-cau-tai-thai-son" },
+      { labelKey: "nav.customProduction", href: "/tin-tuc/at-san-xuat-theo-yeu-cau-tai-thai-son" },
     ],
   },
   {
@@ -62,7 +62,7 @@ const navigationDefinitions: NavigationDefinition[] = [
   },
   {
     labelKey: "nav.otherProducts",
-    href: "/#san-pham-khac",
+    href: "/product-category/san-pham-khac",
     children: [
       {
         labelKey: "nav.edgeProtector",
@@ -78,12 +78,12 @@ const navigationDefinitions: NavigationDefinition[] = [
   },
   { 
     labelKey: "nav.news",
-    href: "/#tin-tuc",
+    href: "/tin-tuc",
     children: [
       { labelKey: "nav.aboutUs", href: "/gioi-thieu" },
-      { labelKey: "nav.exportNews", href: "/posts/tin-xuat-khau" },
-      { labelKey: "nav.productionInfo", href: "/posts/thong-tin-san-xuat" },
-      { labelKey: "nav.recruitment", href: "/posts/tuyen-dung" },
+      { labelKey: "nav.exportNews", href: "/tin-tuc/tin-xuat-khau" },
+      { labelKey: "nav.productionInfo", href: "/tin-tuc/thong-tin-san-xuat" },
+      { labelKey: "nav.recruitment", href: "/tin-tuc/tuyen-dung" },
     ],
   },
   // { label: "Sản phẩm khác", href: "#catalogue" },

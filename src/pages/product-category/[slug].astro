@@ -18,7 +18,15 @@ const t = useTranslations(locale);
 
 const slug = decodeSlug(getRouteSlug(Astro));
 
-const category = slug
+const otherProductCategories = [
+  { slug: "thanh-nep", label: t("nav.edgeProtector") },
+  { slug: "bang-dinh", label: t("nav.adhesiveTape") },
+];
+const isOtherProductsArchive = slug === "san-pham-khac";
+
+const category = isOtherProductsArchive
+  ? { slug, label: t("nav.otherProducts") }
+  : slug
   ? await getTerm("product_category", slug, { locale })
   : null;
 
@@ -26,20 +34,39 @@ if (!category) {
   return Astro.redirect(localizePath("/404", locale));
 }
 
-const {
-  entries: products,
-  error,
-  cacheHint,
-} = await getProductsByCategory(category.slug, 100, locale);
+const requestedCategories = isOtherProductsArchive
+  ? otherProductCategories
+  : [{ slug: category.slug, label: category.label }];
 
-if (Astro.cache?.enabled) {
-  Astro.cache.set(cacheHint);
+const categoryResults = await Promise.all(
+  requestedCategories.map(async (item) => ({
+    ...item,
+    result: await getProductsByCategory(item.slug, 100, locale),
+  })),
+);
+
+const displayCategoryResults = isOtherProductsArchive
+  ? categoryResults.toSorted(
+      (first, second) =>
+        second.result.entries.length - first.result.entries.length,
+    )
+  : categoryResults;
+
+for (const { result } of categoryResults) {
+  if (Astro.cache?.enabled) Astro.cache.set(result.cacheHint);
 }
 
-if (error) {
+const productCount = categoryResults.reduce(
+  (total, item) => total + item.result.entries.length,
+  0,
+);
+
+for (const { slug: categorySlug, result } of categoryResults) {
+  if (!result.error) continue;
+
   console.error(
-    `Không thể tải danh mục sản phẩm ${category.slug}:`,
-    error,
+    `Không thể tải danh mục sản phẩm ${categorySlug}:`,
+    result.error,
   );
 }
 ---
@@ -53,6 +80,7 @@ if (error) {
       ← Quay lại trang chủ
     </a> -->
 
+    {!isOtherProductsArchive && (
     <header class="category-page__header">
       <!-- <span class="category-page__eyebrow">
         Danh mục sản phẩm
@@ -61,33 +89,53 @@ if (error) {
       <h1>{category.label}</h1>
 
       <p>
-        {t("products.count", { count: products.length })}
+        {t("products.count", { count: productCount })}
       </p>
     </header>
+    )}
 
     {
-      error ? (
-        <p class="category-page__message">
-          {t("products.loadError")}
-        </p>
-      ) : products.length === 0 ? (
-        <p class="category-page__message">
-          {t("products.emptyCategory")}
-        </p>
-      ) : (
-        <div class="category-page__grid">
-          {products.map((product) => (
-            <ProductCard
-              title={product.data.title}
-              href={localizePath(`/products/${getPublicEntrySlug(product)}`, locale)}
-              featuredImage={
-                product.data.featured_image
-              }
-              featuredImageAlt={typeof product.data.featured_image_alt === "string" ? product.data.featured_image_alt.trim() : product.data.featured_image?.alt ?? product.data.title}
-            />
-          ))}
-        </div>
-      )
+      displayCategoryResults.map(({ slug: categorySlug, label, result }) => (
+        <section
+          class:list={[
+            "category-group",
+            isOtherProductsArchive && "category-group--separated",
+          ]}
+          aria-labelledby={isOtherProductsArchive ? `category-${categorySlug}` : undefined}
+        >
+          {isOtherProductsArchive && (
+            <header class="category-page__header category-group__header">
+              <h2 id={`category-${categorySlug}`}>
+                <a href={localizePath(`/product-category/${categorySlug}`, locale)}>
+                  {label}
+                </a>
+              </h2>
+              <p>{t("products.count", { count: result.entries.length })}</p>
+            </header>
+          )}
+
+          {result.error ? (
+            <p class="category-page__message">
+              {t("products.loadError")}
+            </p>
+          ) : result.entries.length === 0 ? (
+            <p class="category-page__message category-page__message--empty">
+              {t("products.emptyCategory")}
+            </p>
+          ) : (
+            <div class="category-page__grid">
+              {result.entries.map((product) => (
+                <ProductCard
+                  title={product.data.title}
+                  href={localizePath(`/products/${getPublicEntrySlug(product)}`, locale)}
+                  featuredImage={product.data.featured_image}
+                  featuredImageAlt={typeof product.data.featured_image_alt === "string" ? product.data.featured_image_alt.trim() : product.data.featured_image?.alt ?? product.data.title}
+                />
+              ))}
+            </div>
+          )}
+        </section>
+      ))
     }
   </main>
 </Base>
@@ -95,7 +143,7 @@ if (error) {
 <style>
   .category-page {
     width: min(
-      1200px,
+      var(--container),
       calc(100% - 32px)
     );
     margin: 0 auto;
@@ -130,19 +178,49 @@ if (error) {
     text-transform: uppercase;
   }
 
-  .category-page__header h1 {
+  .category-page__header h1,
+  .category-group__header h2 {
     margin: 0 0 8px;
+    color: inherit;
     font-size: clamp(
       30px,
       4vw,
       42px
     );
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    text-transform: none;
   }
 
   .category-page__header p,
   .category-page__message {
     margin: 0;
     color: #64748b;
+  }
+
+  .category-group--separated + .category-group--separated {
+    margin-top: 52px;
+  }
+
+  .category-group__header {
+    margin-bottom: 28px;
+  }
+
+  .category-group__header h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .category-group__header h2 a:hover {
+    color: #075e96;
+  }
+
+  .category-page__message--empty {
+    padding: 24px;
+    border: 1px solid #d7e0e8;
+    border-radius: 4px;
+    background: #fff;
   }
 
   .category-page__grid {
@@ -180,5 +258,10 @@ if (error) {
         minmax(0, 292px);
       justify-content: center;
     }
+
+    .category-group--separated + .category-group--separated {
+      margin-top: 40px;
+    }
+
   }
 </style>

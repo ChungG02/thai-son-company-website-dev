@@ -10,45 +10,45 @@ import { getCanonicalPostSlug } from "../../utils/content-slugs";
 const locale = getRequestLocale(Astro);
 const t = useTranslations(locale);
 
-const { entries: exportArticles, error, cacheHint } = await getPostsByTaxonomy(
+const { entries: recruitmentPosts, error, cacheHint } = await getPostsByTaxonomy(
   "category",
-  "tin-xuat-khau",
+  "tuyen-dung",
   locale,
   50,
 );
 
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
-if (error) console.error("Không thể tải bài viết Tin xuất khẩu:", error);
+if (error) console.error("Không thể tải bài viết Tuyển dụng:", error);
 ---
 
 <BaseLayout
-  title={t("posts.exportTitle")}
-  description={t("posts.exportDescription")}
+  title={t("posts.recruitmentTitle")}
+  description={t("posts.recruitmentDescription")}
 >
   <Container>
     <article class="mx-auto max-w-5xl py-10 lg:py-14">
-      <PageHeading eyebrow={t("posts.news")} title={t("posts.exportTitle")} />
+      <PageHeading eyebrow={t("posts.careers")} title={t("posts.recruitmentTitle")} />
 
-      {exportArticles.length > 0 ? (
+      {recruitmentPosts.length > 0 ? (
         <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {exportArticles.map((article) => (
+          {recruitmentPosts.map((post) => (
             <article class="news-card">
-              {article.data.featured_image && (
+              {post.data.featured_image && (
                 <a
-					href={localizePath(`/posts/${getCanonicalPostSlug(article)}`, locale)}
+					href={localizePath(`/tin-tuc/${getCanonicalPostSlug(post)}`, locale)}
                   class="news-image"
-                  aria-label={t("news.read", { title: article.data.title })}
-                  {...article.edit.featured_image}
+                  aria-label={t("news.read", { title: post.data.title })}
+                  {...post.edit.featured_image}
                 >
-                  <Image image={article.data.featured_image} />
+                  <Image image={post.data.featured_image} />
                 </a>
               )}
 
               <div class="news-body">
-                <h3 {...article.edit.title}>
-					<a href={localizePath(`/posts/${getCanonicalPostSlug(article)}`, locale)}>{article.data.title}</a>
+                <h3 {...post.edit.title}>
+					<a href={localizePath(`/tin-tuc/${getCanonicalPostSlug(post)}`, locale)}>{post.data.title}</a>
                 </h3>
-                {article.data.excerpt && <p {...article.edit.excerpt}>{article.data.excerpt}</p>}
+                {post.data.excerpt && <p {...post.edit.excerpt}>{post.data.excerpt}</p>}
               </div>
             </article>
           ))}

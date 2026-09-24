@@ -8,7 +8,7 @@
 		"author": "EmDash"
 	},
 	"settings": {
-		"title": "THÁI SƠN",
+		"title": "Thái Sơn Plastic",
 		"tagline": "Giải pháp đóng gói công nghiệp"
 	},
 	"collections": [
@@ -16,6 +16,7 @@
 			"slug": "posts",
 			"label": "Posts",
 			"labelSingular": "Post",
+			"urlPattern": "/tin-tuc/{slug}",
 			"supports": ["drafts", "revisions", "search", "seo"],
 			"commentsEnabled": true,
 			"fields": [
@@ -48,7 +49,7 @@
 			"slug": "pages",
 			"label": "Pages",
 			"labelSingular": "Page",
-			"supports": ["drafts", "revisions", "search"],
+			"supports": ["drafts", "revisions", "search", "seo"],
 			"fields": [
 				{
 					"slug": "title",
@@ -70,7 +71,7 @@
 			"label": "Sản phẩm",
 			"labelSingular": "Sản phẩm",
 			"description": "Quản lý sản phẩm của website",
-			"supports": ["drafts", "revisions", "search"],
+			"supports": ["drafts", "revisions", "search", "seo"],
 			"fields": [
 				{
 					"slug": "title",
@@ -282,7 +283,7 @@
 				{
 					"type": "custom",
 					"label": "Posts",
-					"url": "/posts"
+					"url": "/tin-tuc"
 				}
 			]
 		}

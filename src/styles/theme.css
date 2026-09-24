@@ -511,6 +511,7 @@ button {
 
 .hero-headline {
   position: absolute;
+  margin: 0;
   text-transform: uppercase;
 }
 
@@ -540,14 +541,14 @@ button {
 
 /* Banner 1: copy coordinates measured against banner1.1.png. */
 .carousel-slide[data-layout="factory"] .hero-headline {
-  top: 13.2%;
+  top: 11.5%;
   left: 4.8%;
-  gap: 0.05cqw;
+  gap: 0.18cqw;
 }
 
 .carousel-slide[data-layout="factory"] .hero-headline .line-1 {
-  font-size: 3.02cqw;
-  line-height: 1.08;
+  font-size: 3.62cqw;
+  line-height: 1.03;
 }
 
 .carousel-slide[data-layout="factory"] .hero-headline .line-2 {
@@ -568,14 +569,14 @@ button {
   paint-order: stroke fill;
   text-shadow: none;
   filter: drop-shadow(0 0.055em 0.035em rgba(0, 38, 76, 0.2));
-  font-size: 5cqw;
-  line-height: 0.96;
+  font-size: 5.9cqw;
+  line-height: 0.97;
   letter-spacing: -0.055em;
 }
 
 .carousel-slide[data-layout="factory"] .hero-headline .line-3 {
-  margin-top: 0.32cqw;
-  font-size: 1.8cqw;
+  margin-top: 0.38cqw;
+  font-size: 2.08cqw;
   line-height: 1;
   letter-spacing: -0.025em;
 }
@@ -672,8 +673,8 @@ button {
 }
 
 .carousel-slide[data-layout="catalogue"] .hero-headline-line {
-  font-size: 3.32cqw;
-  line-height: 1.08;
+  font-size: 4.2cqw;
+  line-height: 1.01;
 }
 
 .carousel-slide[data-layout="catalogue"] .hero-headline .line-2 {
@@ -696,9 +697,10 @@ button {
 }
 
 .carousel-slide[data-layout="catalogue"] .hero-subheading {
-  top: 37.8%;
+  top: 42.2%;
   left: 4.35%;
-  font-size: 1.45cqw;
+  color: #ffffff;
+  font-size: 1.9cqw;
   line-height: 1;
   font-weight: 500;
   white-space: nowrap;
@@ -750,14 +752,14 @@ button {
 
 /* Banner 3: copy coordinates measured against banner3.3.png. */
 .carousel-slide[data-layout="logistics"] .hero-headline {
-  top: 10.5%;
+  top: 12%;
   left: 4.35%;
-  gap: 0.1cqw;
+  gap: 0.22cqw;
 }
 
 .carousel-slide[data-layout="logistics"] .hero-headline-line {
-  font-size: 3.08cqw;
-  line-height: 1.06;
+  font-size: 3.82cqw;
+  line-height: 1.01;
 }
 
 .carousel-slide[data-layout="logistics"] .hero-headline .line-2 {
@@ -839,8 +841,8 @@ html[data-ui-locale="en"] .carousel-slide[data-layout="factory"] .hero-headline 
   paint-order: stroke fill;
   text-shadow: none;
   filter: drop-shadow(0 0.055em 0.035em rgba(0, 38, 76, 0.2));
-  font-size: 5cqw;
-  line-height: 0.96;
+  font-size: 5.9cqw;
+  line-height: 0.97;
   letter-spacing: -0.055em;
 }
 
@@ -852,21 +854,21 @@ html[data-ui-locale="en"] .carousel-slide[data-layout="factory"] .hero-headline 
   -webkit-text-fill-color: currentColor;
   -webkit-text-stroke: 0;
   filter: none;
-  font-size: 3.02cqw;
-  line-height: 1.08;
+  font-size: 3.62cqw;
+  line-height: 1.03;
   letter-spacing: -0.035em;
 }
 
 html[data-ui-locale="en"] .carousel-slide[data-layout="factory"] .hero-headline .line-3 {
-  font-size: 1.42cqw;
+  font-size: 1.65cqw;
 }
 
 html[data-ui-locale="en"] .carousel-slide[data-layout="catalogue"] .hero-headline-line {
-  font-size: 2.9cqw;
+  font-size: 3.6cqw;
 }
 
 html[data-ui-locale="en"] .carousel-slide[data-layout="logistics"] .hero-headline-line {
-  font-size: 2.72cqw;
+  font-size: 3.28cqw;
 }
 
 html[data-ui-locale="en"] .carousel-slide[data-layout="logistics"] .hero-benefit strong {

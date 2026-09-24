@@ -37,13 +37,25 @@ const alt = t(slide.altKey);
   />
 
   <div class="hero-copy">
-    <div class="hero-headline">
-      {slide.headlineKeys.map((key, lineIndex) => (
-        <span class:list={["hero-headline-line", `line-${lineIndex + 1}`]}>
-          {t(key)}
-        </span>
-      ))}
-    </div>
+    {
+      index === 0 ? (
+        <h1 class="hero-headline">
+          {slide.headlineKeys.map((key, lineIndex) => (
+            <span class:list={["hero-headline-line", `line-${lineIndex + 1}`]}>
+              {t(key)}
+            </span>
+          ))}
+        </h1>
+      ) : (
+        <div class="hero-headline" role="presentation">
+          {slide.headlineKeys.map((key, lineIndex) => (
+            <span class:list={["hero-headline-line", `line-${lineIndex + 1}`]}>
+              {t(key)}
+            </span>
+          ))}
+        </div>
+      )
+    }
 
     {slide.subheadingKey && (
       <p class="hero-subheading">{t(slide.subheadingKey)}</p>
